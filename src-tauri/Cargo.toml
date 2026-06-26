@@ -1,0 +1,93 @@
+[package]
+name = "bm-aegis"
+version = "0.1.0"
+edition = "2021"
+description = "BM-Aegis — Localized HTML Editor & Privacy Browser"
+authors = ["BritMat"]
+
+# Cargo builds the cdylib for Tauri and the binary for the app runner
+[lib]
+name = "bm_aegis_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# ── Tauri core ─────────────────────────────────────────────────────────────
+tauri = { version = "2", features = ["devtools"] }
+
+# ── Tauri plugins ──────────────────────────────────────────────────────────
+# File open/save/dir dialogs
+tauri-plugin-dialog = "2"
+# File system read/write
+tauri-plugin-fs = "2"
+# Shell / open in system browser
+tauri-plugin-shell = "2"
+# OS native notifications (for GM_notification)
+tauri-plugin-notification = "2"
+# Clipboard (for GM_setClipboard)
+tauri-plugin-clipboard-manager = "2"
+
+# ── Serialisation ─────────────────────────────────────────────────────────
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# ── SQLite with FTS5 (bundled so no system SQLite needed) ────────────────
+rusqlite = { version = "0.31", features = ["bundled", "vtab", "full"] }
+
+# ── Async runtime ─────────────────────────────────────────────────────────
+tokio = { version = "1", features = ["full"] }
+
+# ── HTTP client for metasearch and GM_xmlhttpRequest ─────────────────────
+reqwest = { version = "0.12", default-features = false, features = [
+    "json", "cookies", "rustls-tls", "gzip", "deflate"
+] }
+
+# ── Regex for HTML tokenizer and URL matching ─────────────────────────────
+regex = "1"
+
+# ── URL parsing for privacy filter ────────────────────────────────────────
+url = "2"
+
+# ── Directory walker for search indexer ───────────────────────────────────
+walkdir = "2"
+
+# ── HTML parser for metasearch result extraction ──────────────────────────
+scraper = "0.19"
+
+# ── UUID for userscript IDs ───────────────────────────────────────────────
+uuid = { version = "1", features = ["v4"] }
+
+# ── Platform directories (~/.bm-aegis, etc.) ─────────────────────────────
+dirs = "5"
+
+# ── Mutex-free shared state ───────────────────────────────────────────────
+parking_lot = "0.12"
+
+# ── Logging ───────────────────────────────────────────────────────────────
+log = "0.4"
+
+# ── Time ──────────────────────────────────────────────────────────────────
+chrono = { version = "0.4", features = ["serde"] }
+
+# ── Glob pattern matching (for @match patterns) ───────────────────────────
+glob = "0.3"
+
+[features]
+# This feature is used for production builds or when `devtools` feature is not needed
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+# Optimise for speed on Windows — users' i3 systems benefit from this
+opt-level    = 3
+lto          = true
+codegen-units = 1
+strip        = true   # Strip debug symbols → smaller binary
+panic        = "abort" # Smaller binary, no unwinding overhead
+
+[profile.dev]
+# Faster incremental builds in dev mode
+opt-level = 0
+debug = true
