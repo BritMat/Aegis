@@ -174,6 +174,7 @@ impl SearchIndexer {
         Ok(stats)
     }
 
+    #[allow(dead_code)]
     /// Delete all records for files that no longer exist on disk.
     pub fn prune_deleted(&self) -> rusqlite::Result<usize> {
         let conn = self.connect()?;
@@ -233,6 +234,7 @@ impl SearchIndexer {
         Ok(rows.filter_map(|r| r.ok()).collect())
     }
 
+    #[allow(dead_code)]
     /// Return the total number of indexed documents.
     pub fn doc_count(&self) -> rusqlite::Result<i64> {
         let conn = self.connect()?;

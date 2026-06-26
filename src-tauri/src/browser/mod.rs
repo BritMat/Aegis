@@ -6,7 +6,6 @@ pub mod adblock;
 pub mod history;
 pub mod bookmarks;
 
-use std::sync::Arc;
 use parking_lot::Mutex;
 use tauri::{AppHandle, WebviewWindowBuilder, WebviewUrl};
 use crate::{AppState, SharedState, commands::{XhrDetails, XhrResponse}};
@@ -17,6 +16,7 @@ const GM_API_JS:      &str = include_str!("../../../src/lib/gm-api.js");
 const FINGERPRINT_JS: &str = include_str!("../../../src/lib/fingerprint-protect.js");
 
 // ── Shared adblock engine (lazy-initialised once) ───────────────────────
+#[allow(clippy::type_complexity)]
 static ADBLOCK: std::sync::OnceLock<Mutex<AdBlockEngine>> = std::sync::OnceLock::new();
 
 fn adblock() -> &'static Mutex<AdBlockEngine> {

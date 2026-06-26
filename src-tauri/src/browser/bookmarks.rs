@@ -18,6 +18,7 @@ pub struct Bookmark {
     pub favicon:    String,   // data-uri or empty
 }
 
+#[allow(dead_code)]
 pub struct BookmarkStore {
     db_path: PathBuf,
 }

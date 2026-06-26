@@ -303,7 +303,7 @@ pub async fn gm_xmlhttp_request(details: XhrDetails) -> Result<XhrResponse, Stri
 }
 
 #[tauri::command]
-pub async fn gm_notification(title: String, text: String, timeout: u32, app: AppHandle)
+pub async fn gm_notification(title: String, text: String, _timeout: u32, app: AppHandle)
     -> Result<(), String>
 {
     use tauri_plugin_notification::NotificationExt;
@@ -316,13 +316,13 @@ pub async fn gm_notification(title: String, text: String, timeout: u32, app: App
 }
 
 #[tauri::command]
-pub async fn gm_open_in_tab(url: String, app: AppHandle) -> Result<(), String> {
+pub async fn gm_open_in_tab(url: String, _background: Option<bool>, app: AppHandle) -> Result<(), String> {
     use tauri_plugin_shell::ShellExt;
     app.shell().open(&url, None).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
-pub async fn gm_set_clipboard(data: String, app: AppHandle) -> Result<(), String> {
+pub async fn gm_set_clipboard(data: String, _info: Option<String>, app: AppHandle) -> Result<(), String> {
     use tauri_plugin_clipboard_manager::ClipboardExt;
     app.clipboard().write_text(data).map_err(|e| e.to_string())
 }

@@ -216,6 +216,7 @@ impl UserscriptManager {
 //  GM_ persistent key-value storage
 // ═══════════════════════════════════════════════════════════════════════════
 
+#[allow(dead_code)]
 pub struct GmStorage {
     conn: Connection,
 }
@@ -294,6 +295,7 @@ impl GmStorage {
 //  Header parser
 // ═══════════════════════════════════════════════════════════════════════════
 
+#[allow(dead_code)]
 struct Header(Vec<(String, String)>);
 
 impl Header {

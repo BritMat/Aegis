@@ -1,3 +1,6 @@
+// Privacy filter — large constant arrays are intentional.
+#![allow(dead_code)]
+
 //! browser/privacy.rs
 //!
 //! Privacy filter for the BM-Aegis browser.

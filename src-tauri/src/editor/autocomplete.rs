@@ -1,3 +1,6 @@
+// Auto-generated completion data — many private helper fns are intentional.
+#![allow(dead_code, clippy::too_many_lines)]
+
 //! editor/autocomplete.rs
 //!
 //! Context-aware HTML5 autocomplete.

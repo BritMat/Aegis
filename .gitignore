@@ -1,6 +1,8 @@
+# NOTE: Cargo.lock IS committed — BM-Aegis is a binary app, not a library.
+# This ensures reproducible builds across machines.
+
 # Rust / Cargo
 target/
-Cargo.lock
 
 # Node / Vite
 node_modules/

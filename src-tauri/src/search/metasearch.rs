@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 //! search/metasearch.rs
 //!
 //! Privacy-first web metasearch.

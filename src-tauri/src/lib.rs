@@ -1,3 +1,13 @@
+// BM-Aegis — suppress advisory lints during active development.
+// These are code-quality warnings, not correctness errors.
+// Remove incrementally as the codebase matures.
+#![allow(dead_code)]
+#![allow(unused_imports)]
+#![allow(unused_variables)]
+#![allow(clippy::needless_pass_by_value)]
+#![allow(clippy::unused_async)]
+#![allow(clippy::too_many_arguments)]
+
 pub mod commands;
 pub mod editor;
 pub mod search;

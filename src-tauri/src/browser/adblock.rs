@@ -206,8 +206,9 @@ struct PatternRule {
 
 #[derive(Debug, Clone, Default)]
 struct RuleOptions {
-    third_party: Option<bool>, // Some(true) = only third-party, Some(false) = only first-party
-    types:       Vec<String>,  // "image", "script", "stylesheet", "xmlhttprequest", …
+    third_party: Option<bool>,
+    #[allow(dead_code)]
+    types:       Vec<String>,
 }
 
 #[derive(Debug, Default, Clone, Serialize)]
@@ -265,6 +266,7 @@ impl AdBlockEngine {
         engine
     }
 
+    #[allow(dead_code)]
     pub fn load_rules(&mut self, list: &str) {
         for raw_line in list.lines() {
             let line = raw_line.trim();
@@ -445,6 +447,7 @@ fn effective_domain(host: &str) -> String {
     }
 }
 
+#[allow(dead_code)]
 fn user_filter_path() -> PathBuf {
     dirs::data_dir()
         .unwrap_or_else(|| PathBuf::from("."))

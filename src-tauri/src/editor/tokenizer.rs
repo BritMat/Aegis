@@ -329,8 +329,8 @@ fn finalise_open_tag(
 fn implicit_close(
     new_tag:  &str,
     stack:    &mut Vec<StackFrame>,
-    pos:      (usize, usize),
-    warnings: &mut Vec<LintWarning>,
+    _pos:     (usize, usize),
+    _warnings: &mut Vec<LintWarning>,
 ) {
     let closes: &[(&str, &[&str])] = &[
         // <p> closes a preceding open <p>
@@ -358,8 +358,6 @@ fn implicit_close(
             }
         }
     }
-    let _ = pos;
-    let _ = warnings;
 }
 
 fn process_closing_tag(

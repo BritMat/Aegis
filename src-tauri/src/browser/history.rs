@@ -31,6 +31,7 @@ pub struct HistoryEntry {
     pub date_label:  String,
 }
 
+#[allow(dead_code)]
 pub struct HistoryStore {
     db_path: PathBuf,
 }
@@ -160,6 +161,7 @@ impl HistoryStore {
         conn.execute("DELETE FROM browser_history", [])
     }
 
+    #[allow(dead_code)]
     /// Delete history entries older than `before_secs` (UNIX timestamp).
     pub fn clear_before(&self, before_secs: i64) -> rusqlite::Result<usize> {
         let conn = self.connect()?;
@@ -176,6 +178,7 @@ impl HistoryStore {
         Ok(())
     }
 
+    #[allow(dead_code)]
     /// Return total number of stored URLs.
     pub fn count(&self) -> rusqlite::Result<i64> {
         let conn = self.connect()?;
