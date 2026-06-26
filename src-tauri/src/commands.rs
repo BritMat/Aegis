@@ -20,10 +20,9 @@ use crate::{
 /// Lint HTML with the Rust stack-based tokenizer.
 #[tauri::command]
 pub async fn lint_html(content: String) -> Result<Vec<tokenizer::LintWarning>, String> {
-    tokio::task::spawn_blocking(move || tokenizer::lint(&content))
+    tokio::task::spawn_blocking(move || tokenizer::lint(&content).map_err(|e| e.to_string()))
         .await
         .map_err(|e| e.to_string())?
-        .map_err(|e| e.to_string())
 }
 
 /// Get context-aware autocomplete suggestions.
@@ -32,10 +31,9 @@ pub async fn get_completions(
     content: String,
     line: usize,
 ) -> Result<Vec<autocomplete::Completion>, String> {
-    tokio::task::spawn_blocking(move || autocomplete::completions_for(&content, line))
+    tokio::task::spawn_blocking(move || autocomplete::completions_for(&content, line).map_err(|e| e.to_string()))
         .await
         .map_err(|e| e.to_string())?
-        .map_err(|e| e.to_string())
 }
 
 /// Open a file via system dialog and return its path + content.
@@ -247,32 +245,28 @@ pub fn get_userscripts_for_url(url: String) -> Result<Vec<userscripts::ScriptPay
 pub fn gm_get_value(script_id: String, key: String, default_val: serde_json::Value)
     -> Result<serde_json::Value, String>
 {
-    userscripts::GmStorage::new()
-        .and_then(|s| s.get(&script_id, &key, default_val))
-        .map_err(|e| e.to_string())
+    let storage = userscripts::GmStorage::new().map_err(|e| e.to_string())?;
+    storage.get(&script_id, &key, default_val).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 pub fn gm_set_value(script_id: String, key: String, value: serde_json::Value)
     -> Result<(), String>
 {
-    userscripts::GmStorage::new()
-        .and_then(|s| s.set(&script_id, &key, value))
-        .map_err(|e| e.to_string())
+    let storage = userscripts::GmStorage::new().map_err(|e| e.to_string())?;
+    storage.set(&script_id, &key, value).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 pub fn gm_delete_value(script_id: String, key: String) -> Result<(), String> {
-    userscripts::GmStorage::new()
-        .and_then(|s| s.delete(&script_id, &key))
-        .map_err(|e| e.to_string())
+    let storage = userscripts::GmStorage::new().map_err(|e| e.to_string())?;
+    storage.delete(&script_id, &key).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 pub fn gm_list_values(script_id: String) -> Result<Vec<String>, String> {
-    userscripts::GmStorage::new()
-        .and_then(|s| s.list_keys(&script_id))
-        .map_err(|e| e.to_string())
+    let storage = userscripts::GmStorage::new().map_err(|e| e.to_string())?;
+    storage.list_keys(&script_id).map_err(|e| e.to_string())
 }
 
 #[derive(Deserialize)]
@@ -316,6 +310,7 @@ pub async fn gm_notification(title: String, text: String, _timeout: u32, app: Ap
 }
 
 #[tauri::command]
+#[allow(deprecated)]
 pub async fn gm_open_in_tab(url: String, _background: Option<bool>, app: AppHandle) -> Result<(), String> {
     use tauri_plugin_shell::ShellExt;
     app.shell().open(&url, None).map_err(|e| e.to_string())

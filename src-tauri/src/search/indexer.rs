@@ -179,10 +179,11 @@ impl SearchIndexer {
     pub fn prune_deleted(&self) -> rusqlite::Result<usize> {
         let conn = self.connect()?;
         let paths: Vec<String> = {
-            let mut stmt = conn.prepare("SELECT path FROM doc_meta")?;
-            stmt.query_map([], |r| r.get(0))?
-                .filter_map(|r| r.ok())
-                .collect()
+	let mut stmt = conn.prepare("SELECT path FROM doc_meta")?;
+	let results: Vec<_> = stmt.query_map([], |r| r.get(0))?
+    		.filter_map(|r| r.ok())
+    		.collect();
+		Ok(results)
         };
 
         let mut pruned = 0;
