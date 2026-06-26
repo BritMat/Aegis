@@ -1,0 +1,34 @@
+# BM-Aegis — line ending policy
+# All text files use LF in the repo, regardless of OS.
+# Windows devs: git will convert to CRLF on checkout locally,
+# but always commit with LF — so CI (Linux) never sees CRLF.
+
+* text=auto eol=lf
+
+# Rust
+*.rs     text eol=lf
+*.toml   text eol=lf
+
+# Web
+*.js     text eol=lf
+*.ts     text eol=lf
+*.html   text eol=lf
+*.css    text eol=lf
+*.json   text eol=lf
+*.md     text eol=lf
+*.txt    text eol=lf
+
+# CI / config
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.sh     text eol=lf
+
+# Binary — never touch
+*.ico    binary
+*.png    binary
+*.icns   binary
+*.exe    binary
+*.msi    binary
+*.dmg    binary
+*.deb    binary
+*.AppImage binary
