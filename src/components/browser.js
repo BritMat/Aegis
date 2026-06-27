@@ -590,11 +590,3 @@ function setText(id, val) {
   if (el) el.textContent = val;
 }
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-
-function updateBookmarkBtn() {
-  const btn = document.getElementById("br-bookmark-btn");
-  if (!btn) return;
-  btn.textContent = _isBookmarked ? "★" : "☆";
-  btn.style.color = _isBookmarked ? "var(--yellow)" : "";
-  btn.title       = _isBookmarked ? "Remove bookmark" : "Bookmark this page";
-}

@@ -26,5 +26,4 @@ export default defineConfig({
     },
   },
   // Vite processes these as assets; Tauri bundles them into the binary
-  assetsInclude: ["**/*.html"],
 });

@@ -91,7 +91,7 @@ const bmHighlight = HighlightStyle.define([
   { tag: tags.tagName,                  color: C.red,   fontWeight: "600" },
   { tag: tags.attributeName,            color: C.yellow },
   { tag: tags.attributeValue,           color: C.green },
-  { tag: tags.docType,                  color: C.text3 },
+  { tag: tags.documentMeta,             color: C.text3 },
   { tag: tags.meta,                     color: C.mauve },
   { tag: tags.link,                     color: C.cyan,  textDecoration: "underline" },
   { tag: tags.invalid,                  color: C.red,   textDecoration: "underline" },
