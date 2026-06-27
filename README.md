@@ -6,7 +6,7 @@
 
 **Localized HTML Editor · Privacy Browser · Userscript Engine**
 
-[![Build](https://github.com/BritMat/bm-aegis/actions/workflows/build.yml/badge.svg)](https://github.com/BritMat/bm-aegis/actions)
+[![Build](https://github.com/BritMat/Aegis/actions/workflows/build.yml/badge.svg)](https://github.com/BritMat/bm-aegis/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-7c3aed.svg)](LICENSE)
 [![Tauri](https://img.shields.io/badge/Tauri-v2-06b6d4?logo=tauri)](https://tauri.app)
 [![Rust](https://img.shields.io/badge/Rust-stable-orange?logo=rust)](https://www.rust-lang.org)
@@ -57,7 +57,7 @@ BM-Aegis is a single Tauri application that brings three independent but complem
 | macOS x86_64 | `.dmg` | Intel |
 | Linux x64 | `.AppImage` / `.deb` | |
 
-Download from the [Releases](https://github.com/BritMat/bm-aegis/releases) page.
+Download from the [Releases](https://github.com/BritMat/Aegis/releases) page.
 
 ### Build from source
 
