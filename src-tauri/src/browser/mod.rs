@@ -7,7 +7,7 @@ pub mod history;
 pub mod bookmarks;
 
 use parking_lot::Mutex;
-use tauri::{AppHandle, WebviewWindowBuilder, WebviewUrl};
+use tauri::{AppHandle, Manager, WebviewWindowBuilder, WebviewUrl};
 use crate::{AppState, SharedState, commands::{XhrDetails, XhrResponse}};
 use adblock::AdBlockEngine;
 
