@@ -177,13 +177,16 @@ impl SearchIndexer {
     #[allow(dead_code)]
     /// Delete all records for files that no longer exist on disk.
     pub fn prune_deleted(&self) -> rusqlite::Result<usize> {
+        // This is the line that went missing!
+        let conn = self.connect()?; 
+
         let paths: Vec<String> = {
-        let mut stmt = conn.prepare("SELECT path FROM doc_meta")?;
-        let results: Vec<_> = stmt.query_map([], |r| r.get(0))?
-            .filter_map(|r| r.ok())
-            .collect();
-        results
-    };
+            let mut stmt = conn.prepare("SELECT path FROM doc_meta")?;
+            let results: Vec<_> = stmt.query_map([], |r| r.get(0))?
+                .filter_map(|r| r.ok())
+                .collect();
+            results
+        };
 
         let mut pruned = 0;
         for path in paths {
